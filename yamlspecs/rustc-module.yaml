@@ -1,0 +1,15 @@
+!include rustc.yaml
+!include rcic-module.yaml
+---
+- package: rustc module
+  category: COMPILERS
+  module:
+    <<: *ModuleCompiler
+    prereq:
+      - "{{compiler}}/{{compiler_version}}" 
+      - "llvm/{{versions.llvm}}"
+    requires:
+      - "{{name}}_{{version}}"
+      - "{{compiler}}_{{compiler_version}}-module" 
+      - "llvm_{{versions.llvm}}-module"
+

@@ -1,0 +1,5 @@
+rustc: "1.45.0"
+compiler:
+  name: gcc 
+  version: "8.4.0"
+llvm: "10.0.0"
