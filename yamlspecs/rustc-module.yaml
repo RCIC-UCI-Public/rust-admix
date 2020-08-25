@@ -3,8 +3,9 @@
 ---
 - package: rustc module
   category: COMPILERS
+  release: 2
   module:
-    <<: *ModuleCompiler
+    <<: *Module
     prereq:
       - "{{compiler}}/{{compiler_version}}" 
       - "llvm/{{versions.llvm}}"
