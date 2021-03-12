@@ -3,6 +3,7 @@
 ---
 - package: rustc 
   name: rustc
+  release: 2
   versions: !include versions.yaml
   version: "{{versions.rustc}}" 
   dirname: "{{name}}-{{version}}-src"
@@ -38,6 +39,10 @@
       {{build.configure}} {{build.configure_args}}  
       --set=target.x86_64-unknown-linux-gnu.linker=$$(pwd)/../mylink;
       python x.py build
+
+#      {{build.configure}} {{build.configure_args}}  
+#      --set=target.x86_64-unknown-linux-gnu.linker=$$(pwd)/../mylink;
+#      python x.py build
 
   install:
     ## Rust build doesn't appear to support DEST, so need to do a bind mount

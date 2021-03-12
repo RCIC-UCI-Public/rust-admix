@@ -1,0 +1,5 @@
+#!/bin/bash
+#NEWLDFLAGS=$(echo $LDFLAGS | tr '[:space:]' '\n' | grep ^-L | paste -sd\ )
+#ARGS=$(echo $* | sed s/-m64//)
+#$GCC_INSTALL_PREFIX/bin/ld $NEWLDFLAGS -m elf_x86_64 $ARGS
+gcc $LDFLAGS $*
