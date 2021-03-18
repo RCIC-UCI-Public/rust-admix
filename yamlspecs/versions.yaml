@@ -1,4 +1,4 @@
-rustc: "1.45.0"
+rustc: "1.50.0"
 compiler:
   name: gcc 
   version: "8.4.0"
