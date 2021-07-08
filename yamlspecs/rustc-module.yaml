@@ -5,8 +5,4 @@
   category: COMPILERS
   module:
     prereq:
-      - "{{compiler}}/{{compiler_version}}" 
-      - "llvm/{{versions.llvm}}"
-    requires:
-      - "{{module.prereq}}"
-      - *Requires
+      - "{{build.base_modules}}"

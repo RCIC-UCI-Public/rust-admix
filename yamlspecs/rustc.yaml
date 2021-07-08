@@ -9,11 +9,9 @@
   dirname: "{{name}}-{{version}}-src"
   src_tarball: "{{dirname}}.{{extension}}"
   src_dir: "{{dirname}}"
-
   addfile: 
     - mylink
     - "filter-requires-{{name}}.sh"
-
   compiler: "{{versions.compiler.name}}"
   compiler_version: "{{versions.compiler.version}}"
   vendor_source: https://static.rust-lang.org/dist/{{dirname}}.{{extension}}
@@ -21,17 +19,18 @@
     Rust Compiler version {{ version }}. Rust is a multi-paradigm programming language focused 
     on performance and safety, especially safe concurrency. Rust is syntactically similar 
     to C++, and provides memory safety without using garbage collection.  
-
   build:
     configure: ./configure
     configure_args: 
       --prefix={{root}} 
       --set='rust.channel=stable'
       --llvm-root=$$llvm__PREFIX
-    modules:
-      - foundation 
+    base_modules:
       - "{{compiler}}/{{compiler_version}}"
       - llvm/{{versions.llvm}}
+    modules:
+      - foundation 
+      - "{{build.base_modules}}"
 
     ## Need to wrap ld to include LDFLAGS from the {{ compiler }}, 
     ## but don't want this to show up in RPM description 
