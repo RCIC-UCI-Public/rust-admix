@@ -4,3 +4,6 @@
 # be able to use this.
 
 include $(YAML2RPM_HOME)/sys/Makefile
+
+clean:
+	rm -rf .cargo
