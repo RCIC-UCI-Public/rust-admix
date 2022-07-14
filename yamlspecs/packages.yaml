@@ -1,5 +1,5 @@
 build:
-  - rustc
-  - rustc-module
 manifest:
   - "{{build}}"
+sets:
+  - centos8
