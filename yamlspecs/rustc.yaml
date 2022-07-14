@@ -29,7 +29,7 @@
       - "{{compiler}}/{{compiler_version}}"
       - llvm/{{versions.llvm}}
     modules:
-      - foundation 
+      - foundation/{{versions.foundation}}
       - "{{build.base_modules}}"
 
     ## Need to wrap ld to include LDFLAGS from the {{ compiler }}, 
