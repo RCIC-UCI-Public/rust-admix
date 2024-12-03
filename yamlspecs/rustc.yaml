@@ -29,7 +29,7 @@
       - "{{compiler}}/{{compiler_version}}"
       - llvm/{{versions.llvm}}
     modules:
-      - foundation/{{versions.foundation}}
+      - cmake/{{versions.cmake}}
       - "{{build.base_modules}}"
     ## Need to wrap ld to include LDFLAGS from the {{ compiler }}, 
     ## but don't want this to show up in RPM description 
