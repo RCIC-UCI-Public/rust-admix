@@ -1,0 +1,4 @@
+!include versions.yaml
+---
+rustc: "1.78.0"
+llvm: "18.1.4"

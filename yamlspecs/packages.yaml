@@ -1,5 +1,7 @@
+---
+bootstrap:
 build:
 manifest:
   - "{{build}}"
 sets:
-  - centos8
+  - "2022"
