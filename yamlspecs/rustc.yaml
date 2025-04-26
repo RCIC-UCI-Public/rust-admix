@@ -40,9 +40,10 @@
 
   install:
     ## Rust build doesn't appear to support DEST, so need to do a bind mount
+    bind: !eval "'bindfs -o nonempty' if {{versions.os_release}} >= 9 else 'mount --bind'" 
     makeinstall: >
       if [ ! -d {{root}} ]; then mkdir -p {{root}}; DIRCREATED=1; fi;
-      mount --bind $(ROOT)/{{root}} {{root}};
+      {{install.bind}}  $(ROOT)/{{root}} {{root}};
       python x.py install cargo;
       python x.py install;
       umount {{root}};
