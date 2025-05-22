@@ -1,27 +1,27 @@
 !include rcic-package.yaml
 !include rpm.yaml
 ---
-- package: rustc 
+- package: rustc
   name: rustc
   release: 2
   versions: !include versions.yaml
-  version: "{{versions.rustc}}" 
+  version: "{{versions.rustc}}"
   dirname: "{{name}}-{{version}}-src"
   src_tarball: "{{dirname}}.{{extension}}"
   src_dir: "{{dirname}}"
-  addfile: 
+  addfile:
     - mylink
     - "filter-requires-{{name}}.sh"
   compiler: "{{versions.compiler.name}}"
   compiler_version: "{{versions.compiler.version}}"
   vendor_source: https://static.rust-lang.org/dist/{{dirname}}.{{extension}}
   description: |
-    Rust Compiler version {{ version }}. Rust is a multi-paradigm programming language focused 
-    on performance and safety, especially safe concurrency. Rust is syntactically similar 
+    Rust Compiler. Rust is a multi-paradigm programming language focused
+    on performance and safety, especially safe concurrency. Rust is syntactically similar
     to C++, and provides memory safety without using garbage collection
   build:
     configure:
-    configure_args: 
+    configure_args:
       --prefix={{root}}
       --set='rust.channel=stable'
       --llvm-root=$$llvm__PREFIX
@@ -31,23 +31,22 @@
     modules:
       - cmake/{{versions.cmake}}
       - "{{build.base_modules}}"
-    ## Need to wrap ld to include LDFLAGS from the {{ compiler }}, 
-    ## but don't want this to show up in RPM description 
+    ## Need to wrap ld to include LDFLAGS from the {{ compiler }},
+    ## but don't want this to show up in RPM description
     pkgmake: >
       ./configure {{build.configure_args}}
       --set=target.x86_64-unknown-linux-gnu.linker=$$(pwd)/../mylink;
       python x.py build
-
   install:
     ## Rust build doesn't appear to support DEST, so need to do a bind mount
-    bind: !eval "'bindfs -o nonempty' if {{versions.os_release}} >= 9 else 'mount --bind'" 
+    bind: !eval "'bindfs -o nonempty' if {{versions.os_release}} >= 9 else 'mount --bind'"
     makeinstall: >
       if [ ! -d {{root}} ]; then mkdir -p {{root}}; DIRCREATED=1; fi;
       {{install.bind}}  $(ROOT)/{{root}} {{root}};
       python x.py install cargo;
       python x.py install;
       umount {{root}};
-      if [ "$$DIRCREATED" == "1" ]; then rmdir {{root}}; fi 
+      if [ "$$DIRCREATED" == "1" ]; then rmdir {{root}}; fi
     installextra: $(INSTALL) -m 644  COPYRIGHT* README* LICENSE* $(ROOT)/{{ root }}
 
   requires:
