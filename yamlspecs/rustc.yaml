@@ -19,6 +19,7 @@
     Rust Compiler. Rust is a multi-paradigm programming language focused
     on performance and safety, especially safe concurrency. Rust is syntactically similar
     to C++, and provides memory safety without using garbage collection
+  modules10: !OScmp "<=,9,{{compiler}}/{{compiler_version}},"
   build:
     configure:
     configure_args:
@@ -26,7 +27,7 @@
       --set='rust.channel=stable'
       --llvm-root=$$llvm__PREFIX
     base_modules:
-      - "{{compiler}}/{{compiler_version}}"
+      - "{{modules10}}"
       - llvm/{{versions.llvm}}
     modules:
       - cmake/{{versions.cmake}}
@@ -39,7 +40,7 @@
       python x.py build
   install:
     ## Rust build doesn't appear to support DEST, so need to do a bind mount
-    bind: !eval "'bindfs -o nonempty' if {{versions.os_release}} >= 9 else 'mount --bind'"
+    bind: !OScmp ">=,9,bindfs,mount --bind"
     makeinstall: >
       if [ ! -d {{root}} ]; then mkdir -p {{root}}; DIRCREATED=1; fi;
       {{install.bind}}  $(ROOT)/{{root}} {{root}};
